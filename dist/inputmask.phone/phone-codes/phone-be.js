@@ -3,13 +3,19 @@
 * https://github.com/RobinHerbots/inputmask.phone#readme
 * Copyright (c) 2010 - 2018 
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 0.0.0
+* Version: 1.0.1
 */
 
-!function(factory) {
-    "function" == typeof define && define.amd ? define([ "../inputmask" ], factory) : "object" == typeof exports ? module.exports = factory(require("../inputmask")) : factory(window.Inputmask);
-}(function(Inputmask) {
-    return Inputmask.extendAliases({
+(function(factory) {
+    if (typeof define === "function" && define.amd) {
+        define([ "../inputmask" ], factory);
+    } else if (typeof exports === "object") {
+        module.exports = factory(require("../inputmask"));
+    } else {
+        factory(window.Inputmask);
+    }
+})(function(Inputmask) {
+    Inputmask.extendAliases({
         phonebe: {
             alias: "abstractphone",
             countrycode: "32",
@@ -255,5 +261,6 @@
                 city: "Zeebrugge"
             } ]
         }
-    }), Inputmask;
+    });
+    return Inputmask;
 });

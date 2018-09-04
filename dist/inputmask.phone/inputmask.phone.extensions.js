@@ -3,52 +3,103 @@
 * https://github.com/RobinHerbots/inputmask.phone#readme
 * Copyright (c) 2010 - 2018 
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 0.0.0
+* Version: 1.0.1
 */
 
-!function(factory) {
-    "function" == typeof define && define.amd ? define([ "inputmask" ], factory) : "object" == typeof exports ? module.exports = factory(require("inputmask")) : factory(window.Inputmask);
-}(function(Inputmask) {
+(function(factory) {
+    if (typeof define === "function" && define.amd) {
+        define([ "inputmask" ], factory);
+    } else if (typeof exports === "object") {
+        module.exports = factory(require("inputmask"));
+    } else {
+        factory(window.Inputmask);
+    }
+})(function(Inputmask) {
     var $ = Inputmask.dependencyLib;
     function maskSort(a, b) {
         var maska = (a.mask || a).replace(/#/g, "0").replace(/\)/, "0").replace(/[+()#-]/g, ""), maskb = (b.mask || b).replace(/#/g, "0").replace(/\)/, "0").replace(/[+()#-]/g, "");
         return maska.localeCompare(maskb);
     }
     var analyseMaskBase = Inputmask.prototype.analyseMask;
-    return Inputmask.prototype.analyseMask = function(mask, regexMask, opts) {
+    Inputmask.prototype.analyseMask = function(mask, regexMask, opts) {
         var maskGroups = {};
-        return opts.phoneCodes && (opts.phoneCodes && 1e3 < opts.phoneCodes.length && (function reduceVariations(masks, previousVariation, previousmaskGroup) {
-            previousmaskGroup = previousmaskGroup || maskGroups, "" !== (previousVariation = previousVariation || "") && (previousmaskGroup[previousVariation] = {});
-            for (var variation = "", maskGroup = previousmaskGroup[previousVariation] || previousmaskGroup, i = masks.length - 1; 0 <= i; i--) maskGroup[variation = (mask = masks[i].mask || masks[i]).substr(0, 1)] = maskGroup[variation] || [], 
-            maskGroup[variation].unshift(mask.substr(1)), masks.splice(i, 1);
-            for (var ndx in maskGroup) 500 < maskGroup[ndx].length && reduceVariations(maskGroup[ndx].slice(), ndx, maskGroup);
-        }((mask = mask.substr(1, mask.length - 2)).split(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0])), 
-        mask = function rebuild(maskGroup) {
+        function reduceVariations(masks, previousVariation, previousmaskGroup) {
+            previousVariation = previousVariation || "";
+            previousmaskGroup = previousmaskGroup || maskGroups;
+            if (previousVariation !== "") {
+                previousmaskGroup[previousVariation] = {};
+            }
+            var variation = "", maskGroup = previousmaskGroup[previousVariation] || previousmaskGroup;
+            for (var i = masks.length - 1; i >= 0; i--) {
+                mask = masks[i].mask || masks[i];
+                variation = mask.substr(0, 1);
+                maskGroup[variation] = maskGroup[variation] || [];
+                maskGroup[variation].unshift(mask.substr(1));
+                masks.splice(i, 1);
+            }
+            for (var ndx in maskGroup) {
+                if (maskGroup[ndx].length > 500) {
+                    reduceVariations(maskGroup[ndx].slice(), ndx, maskGroup);
+                }
+            }
+        }
+        function rebuild(maskGroup) {
             var mask = "", submasks = [];
-            for (var ndx in maskGroup) $.isArray(maskGroup[ndx]) ? 1 === maskGroup[ndx].length ? submasks.push(ndx + maskGroup[ndx]) : submasks.push(ndx + opts.groupmarker[0] + maskGroup[ndx].join(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0]) + opts.groupmarker[1]) : submasks.push(ndx + rebuild(maskGroup[ndx]));
-            return 1 === submasks.length ? mask += submasks[0] : mask += opts.groupmarker[0] + submasks.join(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0]) + opts.groupmarker[1], 
-            mask;
-        }(maskGroups)), mask = mask.replace(/9/g, "\\9")), analyseMaskBase.call(this, mask, regexMask, opts);
-    }, Inputmask.extendAliases({
+            for (var ndx in maskGroup) {
+                if ($.isArray(maskGroup[ndx])) {
+                    if (maskGroup[ndx].length === 1) {
+                        submasks.push(ndx + maskGroup[ndx]);
+                    } else {
+                        submasks.push(ndx + opts.groupmarker[0] + maskGroup[ndx].join(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0]) + opts.groupmarker[1]);
+                    }
+                } else {
+                    submasks.push(ndx + rebuild(maskGroup[ndx]));
+                }
+            }
+            if (submasks.length === 1) {
+                mask += submasks[0];
+            } else {
+                mask += opts.groupmarker[0] + submasks.join(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0]) + opts.groupmarker[1];
+            }
+            return mask;
+        }
+        if (opts.phoneCodes) {
+            if (opts.phoneCodes && opts.phoneCodes.length > 1e3) {
+                mask = mask.substr(1, mask.length - 2);
+                reduceVariations(mask.split(opts.groupmarker[1] + opts.alternatormarker + opts.groupmarker[0]));
+                mask = rebuild(maskGroups);
+            }
+            mask = mask.replace(/9/g, "\\9");
+        }
+        var mt = analyseMaskBase.call(this, mask, regexMask, opts);
+        return mt;
+    };
+    Inputmask.extendAliases({
         abstractphone: {
             groupmarker: [ "<", ">" ],
             countrycode: "",
             phoneCodes: [],
             keepStatic: "auto",
             mask: function(opts) {
-                return opts.definitions = {
-                    "#": Inputmask.prototype.definitions[9]
-                }, opts.phoneCodes.sort(maskSort);
+                opts.definitions = {
+                    "#": Inputmask.prototype.definitions["9"]
+                };
+                var sorted = opts.phoneCodes.sort(maskSort);
+                return sorted;
             },
             onBeforeMask: function(value, opts) {
                 var processedValue = value.replace(/^0{1,2}/, "").replace(/[\s]/g, "");
-                return (1 < processedValue.indexOf(opts.countrycode) || -1 === processedValue.indexOf(opts.countrycode)) && (processedValue = "+" + opts.countrycode + processedValue), 
-                processedValue;
+                if (processedValue.indexOf(opts.countrycode) > 1 || processedValue.indexOf(opts.countrycode) === -1) {
+                    processedValue = "+" + opts.countrycode + processedValue;
+                }
+                return processedValue;
             },
             onUnMask: function(maskedValue, unmaskedValue, opts) {
-                return maskedValue.replace(/[()#-]/g, "");
+                var unmasked = maskedValue.replace(/[()#-]/g, "");
+                return unmasked;
             },
             inputmode: "tel"
         }
-    }), Inputmask;
+    });
+    return Inputmask;
 });

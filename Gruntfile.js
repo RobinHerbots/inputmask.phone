@@ -22,6 +22,7 @@ module.exports = function (grunt) {
                     banner: createBanner(dstFile),
                     beautify: true,
                     mangle: false,
+                    compress: false,
                     preserveComments: false,
                     ASCIIOnly: true
                 }
@@ -31,6 +32,8 @@ module.exports = function (grunt) {
                 src: srcFiles[srcNdx],
                 options: {
                     banner: createBanner(dstFileMin),
+                    mangle: false,
+                    compress: false,
                     preserveComments: false,
                     ASCIIOnly: true
                 }
@@ -62,40 +65,25 @@ module.exports = function (grunt) {
                 add: false
             }
         },
-        nugetpack: {
-            dist: {
-                src: function () {
-                    return 'nuspecs/Inputmask.nuspec';
-                }(),
-                dest: 'build/',
-                options: {
-                    version: '<%= pkg.version %>'
-                }
-            },
-            dist2: {
-                src: function () {
-                    return 'nuspecs/jquery.inputmask.nuspec';
-                }(),
-                dest: 'build/',
-                options: {
-                    version: '<%= pkg.version %>'
-                }
-            }
-        },
-        nugetpush: {
-            dist: {
-                src: 'build/InputMask.<%= pkg.version %>.nupkg',
-                options: {
-                    source: "https://www.nuget.org"
-                }
-            },
-            dist2: {
-                src: 'build/jquery.inputMask.<%= pkg.version %>.nupkg',
-                options: {
-                    source: "https://www.nuget.org"
-                }
-            }
-        },
+        // nugetpack: {
+        //     dist: {
+        //         src: function () {
+        //             return 'nuspecs/Inputmask.phone.nuspec';
+        //         }(),
+        //         dest: 'build/',
+        //         options: {
+        //             version: '<%= pkg.version %>'
+        //         }
+        //     }
+        // },
+        // nugetpush: {
+        //     dist: {
+        //         src: 'build/InputMask.phone.<%= pkg.version %>.nupkg',
+        //         options: {
+        //             source: "https://www.nuget.org"
+        //         }
+        //     }
+        // },
         eslint: {
             target: "{extra/*,js}/*.js"
         },
@@ -113,7 +101,7 @@ module.exports = function (grunt) {
 // Load the plugin that provides the tasks.
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('publish', ['release', 'nugetpack', 'nugetpush']);
+    grunt.registerTask('publish', ['release']);
     grunt.registerTask('publishnext', function () {
         grunt.config('release.options.npmtag', "next");
         grunt.task.run('release');
