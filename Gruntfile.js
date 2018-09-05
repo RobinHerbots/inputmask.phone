@@ -66,25 +66,25 @@ module.exports = function (grunt) {
                 add: false
             }
         },
-        // nugetpack: {
-        //     dist: {
-        //         src: function () {
-        //             return 'nuspecs/Inputmask.phone.nuspec';
-        //         }(),
-        //         dest: 'build/',
-        //         options: {
-        //             version: '<%= pkg.version %>'
-        //         }
-        //     }
-        // },
-        // nugetpush: {
-        //     dist: {
-        //         src: 'build/InputMask.phone.<%= pkg.version %>.nupkg',
-        //         options: {
-        //             source: "https://www.nuget.org"
-        //         }
-        //     }
-        // },
+        nugetpack: {
+            dist: {
+                src: function () {
+                    return 'nuspecs/Inputmask.phone.nuspec';
+                }(),
+                dest: 'build/',
+                options: {
+                    version: '<%= pkg.version %>'
+                }
+            }
+        },
+        nugetpush: {
+            dist: {
+                src: 'build/InputMask.phone.<%= pkg.version %>.nupkg',
+                options: {
+                    source: "https://www.nuget.org"
+                }
+            }
+        },
         eslint: {
             target: "{extra/*,js}/*.js"
         },
