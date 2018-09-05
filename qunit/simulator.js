@@ -1,4 +1,5 @@
-export default function ($, Inputmask) {
+export default function (Inputmask) {
+    var $ = Inputmask.dependencyLib;
     $.caret = function (input, begin, end) {
         input = input.nodeName ? input : input[0];
         input.focus();

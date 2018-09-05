@@ -1,5 +1,5 @@
-export default function (qunit, $, Inputmask) {
-
+export default function (qunit, Inputmask) {
+    var $ = Inputmask.dependencyLib;
 	qunit.module("Phoneru masks");
 
 

@@ -1,5 +1,4 @@
 import "../node_modules/qunitjs/qunit/qunit.css";
-import "../css/inputmask.css";
 
 //extensions
 import "../js/inputmask.phone.extensions";
@@ -21,22 +20,24 @@ Inputmask.extendDefaults({
 
 window.Inputmask = Inputmask; //inject globally for the simulator to detect inputeventonly
 
+import tests_phone from "./tests_phone";
 import tests_phone_world from "./tests_phone_world";
 import tests_phonebe from "./tests_phonebe";
+import tests_phonemx from "./tests_phonemx";
 import tests_phonenl from "./tests_phonenl";
 import tests_phoneru from "./tests_phoneru";
 
 //inject simulater code
-simulator(dependencyLib, Inputmask);
-simulator(jQuery, Inputmask);
+simulator(Inputmask);
 
 //load tests
-tests_phone(qunit, dependencyLib, Inputmask);
+tests_phone(qunit, Inputmask);
 //phone
-tests_phone_world(qunit, dependencyLib, Inputmask);
-tests_phonebe(qunit, dependencyLib, Inputmask);
-tests_phonenl(qunit, dependencyLib, Inputmask);
-tests_phoneru(qunit, dependencyLib, Inputmask);
+tests_phone_world(qunit, Inputmask);
+tests_phonebe(qunit, Inputmask);
+tests_phonemx(qunit, Inputmask);
+tests_phonenl(qunit, Inputmask);
+tests_phoneru(qunit, Inputmask);
 
 qunit.load();
 // qunit.start();

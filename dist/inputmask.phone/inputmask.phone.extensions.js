@@ -99,6 +99,10 @@
                 return unmasked;
             },
             inputmode: "tel"
+        },
+        libphonenumber: {
+            metadata: null,
+            regex: "\\+\\d{3} \\d{3} \\d{2} \\d{2}"
         }
     });
     return Inputmask;

@@ -9,9 +9,9 @@
  */
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
-		define(["../inputmask"], factory);
+		define(["../inputmask.phone.extensions"], factory);
 	} else if (typeof exports === "object") {
-		module.exports = factory(require("../inputmask"));
+		module.exports = factory(require("../inputmask.phone.extensions"));
 	} else {
 		factory(window.Inputmask);
 	}

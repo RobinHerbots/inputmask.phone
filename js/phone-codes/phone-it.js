@@ -1,5 +1,5 @@
 !function (factory) {
-    "function" == typeof define && define.amd ? define(["../inputmask"], factory) : "object" == typeof exports ? module.exports = factory(require("../inputmask")) : factory(window.Inputmask);
+    "function" == typeof define && define.amd ? define(["../inputmask.phone.extensions"], factory) : "object" == typeof exports ? module.exports = factory(require("../inputmask.phone.extensions")) : factory(window.Inputmask);
 }(function (Inputmask) {
     return Inputmask.extendAliases({
         "phoneit": {

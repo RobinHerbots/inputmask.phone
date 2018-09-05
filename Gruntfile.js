@@ -1,3 +1,4 @@
+const qunitWebpackConfig = require('./qunit/webpack.config');
 module.exports = function (grunt) {
     function createBanner(fileName) {
         return "/*!\n" +
@@ -95,6 +96,9 @@ module.exports = function (grunt) {
                     showTasks: ['user']
                 }
             }
+        },
+        webpack: {
+            qunit: qunitWebpackConfig
         }
     });
 
