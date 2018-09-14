@@ -1,4 +1,4 @@
-import "../node_modules/qunitjs/qunit/qunit.css";
+import "../node_modules/qunit/qunit/qunit.css";
 
 //extensions
 import "../js/inputmask.phone.extensions";
@@ -8,7 +8,7 @@ import "../js/phone-codes/phone-ru";
 import "../js/phone-codes/phone";
 
 import Inputmask from "inputmask";
-import qunit from "qunitjs";
+import qunit from "qunit";
 import "./prototypeExtensions.js";
 import simulator from "./simulator.js";
 
