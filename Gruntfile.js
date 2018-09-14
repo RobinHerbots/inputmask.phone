@@ -105,7 +105,7 @@ module.exports = function (grunt) {
 // Load the plugin that provides the tasks.
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('publish', ['release']);
+    grunt.registerTask('publish', ['release', 'nugetpack', 'nugetpush']);
     grunt.registerTask('publishnext', function () {
         grunt.config('release.options.npmtag', "next");
         grunt.task.run('release');
