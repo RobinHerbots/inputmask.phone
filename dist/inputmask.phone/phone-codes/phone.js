@@ -3,7 +3,7 @@
 * https://github.com/RobinHerbots/inputmask.phone#readme
 * Copyright (c) 2010 - 2018 
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 1.0.3
+* Version: 1.0.4-beta.0
 */
 
 (function(factory) {
@@ -621,7 +621,7 @@
                 name_ru: "Майотта",
                 desc_ru: ""
             }, {
-                mask: "+33(###)###-###",
+                mask: "+33-#-##-##-##-##",
                 cc: "FR",
                 cd: "France",
                 desc_en: "",

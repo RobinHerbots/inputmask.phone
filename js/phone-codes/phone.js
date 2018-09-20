@@ -107,7 +107,7 @@
 				{ "mask": "+691-###-####", "cc": "FM", "cd": "F.S. Micronesia", "desc_en": "", "name_ru": "Ф.Ш. Микронезии", "desc_ru": "" },
 				{ "mask": "+298-###-###", "cc": "FO", "cd": "Faroe Islands", "desc_en": "", "name_ru": "Фарерские острова", "desc_ru": "" },
 				{ "mask": "+262-#####-####", "cc": "FR", "cd": "Mayotte", "desc_en": "", "name_ru": "Майотта", "desc_ru": "" },
-				{ "mask": "+33(###)###-###", "cc": "FR", "cd": "France", "desc_en": "", "name_ru": "Франция", "desc_ru": "" },
+				{ "mask": "+33-#-##-##-##-##", "cc": "FR", "cd": "France", "desc_en": "", "name_ru": "Франция", "desc_ru": "" },
 				{ "mask": "+508-##-####", "cc": "FR", "cd": "St Pierre & Miquelon", "desc_en": "", "name_ru": "Сен-Пьер и Микелон", "desc_ru": "" },
 				{ "mask": "+590(###)###-###", "cc": "FR", "cd": "Guadeloupe", "desc_en": "", "name_ru": "Гваделупа", "desc_ru": "" },
 				{ "mask": "+241-#-##-##-##", "cc": "GA", "cd": "Gabon", "desc_en": "", "name_ru": "Габон", "desc_ru": "" },
