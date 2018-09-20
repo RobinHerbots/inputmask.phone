@@ -1,6 +1,6 @@
 {
   "name": "inputmask.phone",
-  "version": "1.0.3",
+  "version": "1.0.4-beta.0",
   "description": "Phone alias for Inputmask",
   "main": "index.js",
   "files": [
