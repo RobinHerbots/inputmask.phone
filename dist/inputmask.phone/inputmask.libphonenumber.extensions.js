@@ -1,9 +1,9 @@
 /*!
 * inputmask.libphonenumber.extensions.js
 * https://github.com/RobinHerbots/inputmask.phone#readme
-* Copyright (c) 2010 - 2018 
+* Copyright (c) 2010 - 2019 
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 1.0.4-beta.0
+* Version: 1.0.5-beta.1
 */
 
 (function(factory) {
