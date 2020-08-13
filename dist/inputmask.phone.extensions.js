@@ -3,7 +3,7 @@
  * https://github.com/RobinHerbots/inputmask.phone#readme
  * Copyright (c) 2010 - 2020 undefined
  * Licensed under the MIT license
- * Version: 1.0.4-beta.3
+ * Version: 1.0.4-beta.4
  */
 !function webpackUniversalModuleDefinition(root, factory) {
     if ("object" == typeof exports && "object" == typeof module) module.exports = factory(require("Inputmask")); else if ("function" == typeof define && define.amd) define([ "Inputmask" ], factory); else {
