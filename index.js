@@ -1,1 +1,1 @@
-module.exports = require("./dist/inputmask/inputmask.phone.extensions");
+module.exports = require("./dist/inputmask.phone.extensions");
