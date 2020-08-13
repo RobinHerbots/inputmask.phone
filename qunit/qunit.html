@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Inputmask - QUnit</title>
+    <meta charset="utf-8">
+    <title>Inputmask.phone - QUnit</title>
+    <link rel="stylesheet" href="../node_modules/qunit/qunit/qunit.css">
 </head>
 <body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>²
-  <script src="../node_modules/qunit/qunit/qunit.js"></script>
-  <script src="qunit.js" charset="utf-8"></script>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<!--qunit needs to be on top otherwise it does not get loaded - wasted a whole day on that @#&! -->
+<script src="../node_modules/qunit/qunit/qunit.js"></script>
+<script>
+    QUnit.config.autostart = false;
+</script>
+<script src="../node_modules/inputmask/dist/jquery.inputmask.js"></script>
+<script src="../dist/phone-codes/phone.js"></script>
+<script src="../dist/phone-codes/phone-be.js"></script>
+<script src="../dist/phone-codes/phone-ca.js"></script>
+<script src="../dist/phone-codes/phone-hu.js"></script>
+<script src="../dist/phone-codes/phone-it.js"></script>
+<script src="../dist/phone-codes/phone-mx.js"></script>
+<script src="../dist/phone-codes/phone-nl.js"></script>
+<script src="../dist/phone-codes/phone-ru.js"></script>
+<script src="../qunit/qunit.js" charset="utf-8"></script>
 </body>
 </html>

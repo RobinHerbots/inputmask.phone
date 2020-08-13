@@ -1,16 +1,10 @@
-import "../node_modules/qunit/qunit/qunit.css";
-
-//extensions
-import "../js/inputmask.phone.extensions";
-import "../js/phone-codes/phone-be";
-import "../js/phone-codes/phone-nl";
-import "../js/phone-codes/phone-ru";
-import "../js/phone-codes/phone";
-
 import Inputmask from "inputmask";
+import jQuery from "jquery";
 import qunit from "qunit";
+
 import "./prototypeExtensions.js";
 import simulator from "./simulator.js";
+import "../lib/inputmask.phone.extensions";
 
 
 // android testing
@@ -28,16 +22,16 @@ import tests_phonenl from "./tests_phonenl";
 import tests_phoneru from "./tests_phoneru";
 
 //inject simulater code
-simulator(Inputmask);
+simulator(Inputmask.dependencyLib, Inputmask);
+simulator(jQuery, Inputmask);
 
 //load tests
 tests_phone(qunit, Inputmask);
 //phone
 tests_phone_world(qunit, Inputmask);
 tests_phonebe(qunit, Inputmask);
-tests_phonemx(qunit, Inputmask);
-tests_phonenl(qunit, Inputmask);
-tests_phoneru(qunit, Inputmask);
+// tests_phonemx(qunit, Inputmask);
+// tests_phonenl(qunit, Inputmask);
+// tests_phoneru(qunit, Inputmask);
 
-qunit.load();
-// qunit.start();
+qunit.start();

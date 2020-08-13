@@ -1,53 +1,8 @@
-const qunitWebpackConfig = require('./qunit/webpack.config');
+const webpackConfig = require('./webpack.config');
+
 module.exports = function (grunt) {
-    function createBanner(fileName) {
-        return "/*!\n" +
-            "* " + fileName + "\n" +
-            "* <%= pkg.homepage %>\n" +
-            "* Copyright (c) 2010 - <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>\n" +
-            "* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)\n" +
-            "* Version: <%= pkg.version %>\n" +
-            "*/\n";
-    }
-
-    function createUglifyConfig(path) {
-        var uglifyConfig = {};
-        var srcFiles = grunt.file.expand(path + "/**/*.js");
-        for (var srcNdx in srcFiles) {
-            var dstFile = srcFiles[srcNdx].replace("js/", ""),
-                dstFileMin = dstFile.replace(".js", ".min.js");
-            uglifyConfig[dstFile] = {
-                dest: 'dist/inputmask.phone/' + dstFile,
-                src: srcFiles[srcNdx],
-                options: {
-                    banner: createBanner(dstFile),
-                    beautify: true,
-                    mangle: false,
-                    compress: false,
-                    preserveComments: false,
-                    ASCIIOnly: true
-                }
-            };
-            uglifyConfig[dstFileMin] = {
-                dest: "dist/min/inputmask.phone/" + dstFileMin,
-                src: srcFiles[srcNdx],
-                options: {
-                    banner: createBanner(dstFileMin),
-                    mangle: false,
-                    compress: false,
-                    preserveComments: false,
-                    ASCIIOnly: true
-                }
-            };
-        }
-
-        return uglifyConfig;
-    }
-
-// Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
-        uglify: createUglifyConfig("js"),
         clean: ["dist"],
         bump: {
             options: {
@@ -86,7 +41,7 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            target: "{extra/*,js}/*.js"
+            target: "lib/*.js"
         },
         availabletasks: {
             tasks: {
@@ -98,7 +53,15 @@ module.exports = function (grunt) {
             }
         },
         webpack: {
-            qunit: qunitWebpackConfig
+            main: webpackConfig("production")[0],
+        },
+        copy: {
+            phonecodes: {
+                expand: true,
+                cwd: 'lib',
+                src: 'phone-codes/*',
+                dest: 'dist/',
+            }
         }
     });
 
@@ -110,9 +73,10 @@ module.exports = function (grunt) {
         grunt.config('release.options.npmtag', "next");
         grunt.task.run('release');
     });
-    grunt.registerTask('build', ['bump:prerelease', 'clean', 'uglify']);
-    grunt.registerTask('build:patch', ['bump:patch', 'clean', 'uglify']);
-    grunt.registerTask('build:minor', ['bump:minor', 'clean', 'uglify']);
-    grunt.registerTask('build:major', ['bump:major', 'clean', 'uglify']);
-    grunt.registerTask('default', ["availabletasks"]);
+    grunt.registerTask("validate", ["webpack", "copy", "eslint"]);
+    grunt.registerTask("build", ["bump:prerelease", "clean", "webpack", "copy"]);
+    grunt.registerTask("build:patch", ["bump:patch", "clean", "webpack", "copy"]);
+    grunt.registerTask("build:minor", ["bump:minor", "clean", "webpack", "copy"]);
+    grunt.registerTask("build:major", ["bump:major", "clean", "webpack", "copy"]);
+    grunt.registerTask("default", ["availabletasks"]);
 };

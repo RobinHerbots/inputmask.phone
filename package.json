@@ -1,13 +1,13 @@
 {
   "name": "inputmask.phone",
-  "version": "1.0.3",
+  "version": "1.0.4-beta.1",
   "description": "Phone alias for Inputmask",
   "main": "index.js",
   "files": [
     "dist/"
   ],
   "scripts": {
-    "start": "grunt",
+    "start": "webpack --progress --watch --config-name main --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,36 +25,32 @@
   },
   "homepage": "https://github.com/RobinHerbots/inputmask.phone#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-helpers": "^6.24.1",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "caniuse-db": "^1.0.30000872",
-    "css-loader": "^1.0.0",
-    "grunt": "^1.0.3",
-    "grunt-available-tasks": "^0.6.3",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-typescript": "7.10.4",
+    "@robinherbots/grunt-available-tasks": "^0.6.4",
+    "@robinherbots/grunt-nuget": "^0.3.2",
+    "babel-loader": "^8.1.0",
+    "grunt": "^1.2.1",
     "grunt-bump": "^0.8.0",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-uglify": "^4.0.0",
-    "grunt-eslint": "^21.0.0",
-    "grunt-nuget": "^0.3.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-eslint": "^23.0.0",
     "grunt-release": "^0.14.0",
-    "grunt-webpack": "^3.1.2",
-    "jquery": "^3.3.1",
-    "load-grunt-tasks": "^4.0.0",
-    "loader-utils": "^1.1.0",
-    "postcss": "^7.0.2",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-loader": "^2.1.6",
-    "qunit": "^2.4.1",
-    "source-map-loader": "^0.2.3",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0",
-    "xml2js": "^0.4.19"
+    "grunt-webpack": "^4.0.2",
+    "jqlite": "^0.2.42",
+    "jquery": "^3.5.1",
+    "jsdom": "^16.3.0",
+    "load-grunt-tasks": "^5.1.0",
+    "lodash": "^4.17.19",
+    "qunit": "^2.10.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12",
+    "xml2js": "^0.4.23"
   },
   "dependencies": {
-    "inputmask": "^4.0.2"
+    "inputmask": "^5.0.5"
   }
 }

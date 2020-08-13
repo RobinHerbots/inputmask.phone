@@ -1,5 +1,6 @@
-export default function (Inputmask) {
-    var $ = Inputmask.dependencyLib;
+import keyCode from "inputmask/lib/keycode";
+
+export default function ($, Inputmask) {
     $.caret = function (input, begin, end) {
         input = input.nodeName ? input : input[0];
         input.focus();
@@ -11,8 +12,7 @@ export default function (Inputmask) {
             // }
 
             if (input.setSelectionRange) {
-                input.selectionStart = begin;
-                input.selectionEnd = end;
+                input.setSelectionRange(begin, end);
             } else if (window.getSelection) {
                 range = document.createRange();
                 if (input.firstChild === undefined) {
@@ -35,7 +35,7 @@ export default function (Inputmask) {
 
             }
         } else {
-            if (input.setSelectionRange) {
+            if ("selectionStart" in input && "selectionEnd" in input) {
                 begin = input.selectionStart;
                 end = input.selectionEnd;
             } else if (window.getSelection) {
@@ -58,8 +58,8 @@ export default function (Inputmask) {
         }
     };
     $.fn = $.fn || $.prototype;
-    $.fn.SendKey = function (keyCode, modifier) {
-        var elem = this.nodeName ? this : this[0], origCode = keyCode;
+    $.fn.SendKey = function (keycode, modifier) {
+        var elem = this.nodeName ? this : this[0], origCode = keycode;
         elem.type = "text"; //force textinput to support caret fn
 
 
@@ -77,22 +77,34 @@ export default function (Inputmask) {
         }
 
         var sendDummyKeydown = false;
-        if (Object.prototype.toString.call(keyCode) == '[object String]') {
-            keyCode = keyCode.charCodeAt(0);
+        if (Object.prototype.toString.call(keycode) == "[object String]") {
+            keycode = keycode.charCodeAt(0);
             sendDummyKeydown = true;
         }
 
-        switch (keyCode) {
-            case Inputmask.keyCode.LEFT:
+        switch (keycode) {
+            case keyCode.HOME:
+                if (modifier == undefined) {
+                    var pos = $.caret(this);
+                    $.caret(this, 0);
+                    break;
+                }
+            case keyCode.END:
+                if (modifier == undefined) {
+                    var pos = $.caret(this);
+                    $.caret(this, elem.value.length);
+                    break;
+                }
+            case keyCode.LEFT:
                 if (modifier == undefined) {
                     var pos = $.caret(this);
                     $.caret(this, pos.begin - 1);
                     break;
                 }
-            case Inputmask.keyCode.RIGHT:
+            case keyCode.RIGHT:
                 if (modifier == undefined) {
                     var pos = $.caret(this);
-                    $.caret(this, pos.begin + 1);
+                    $.caret(this, pos.end + 1);
                     break;
                 }
             default:
@@ -109,28 +121,32 @@ export default function (Inputmask) {
                         back = currentValue.substring(caretPos.end),
                         newValue = currentValue;
 
-                    switch (keyCode) {
-                        case Inputmask.keyCode.BACKSPACE:
-                            if (caretPos.begin === caretPos.end)
-                                front = front.substr(0, front.length - 1)
+                    switch (keycode) {
+                        case keyCode.BACKSPACE:
+                            if (caretPos.begin === caretPos.end) {
+                                front = front.substr(0, front.length - 1);
+                            }
                             newValue = front + back;
                             break;
-                        case Inputmask.keyCode.DELETE:
+                        case keyCode.DELETE:
                             if (origCode !== ".") {
-                                if (caretPos.begin === caretPos.end)
+                                if (caretPos.begin === caretPos.end) {
                                     back = back.slice(1);
+                                }
                                 newValue = front + back;
                                 break;
                             }
                         default:
-                            newValue = front + String.fromCharCode(keyCode) + back;
+                            newValue = front + String.fromCharCode(keycode) + back;
                             caretOffset = front.length > 0 ? 1 : 0;
                             break;
                     }
 
-                    if (elem.inputmask && elem.inputmask.__valueSet)
+                    if (elem.inputmask && elem.inputmask.__valueSet) {
                         elem.inputmask.__valueSet.call(elem, newValue);
-                    else elem.value = newValue;
+                    } else {
+                        elem.value = newValue;
+                    }
                     $.caret(elem, (newValue.length - back.length));
                     trigger(elem, input);
                 } else {
@@ -139,33 +155,36 @@ export default function (Inputmask) {
                         keyup = new $.Event("keyup");
 
                     if (!sendDummyKeydown) {
-                        keydown.keyCode = keyCode;
-                        if (modifier == Inputmask.keyCode.CONTROL)
+                        keydown.keyCode = keycode;
+                        if (modifier == keyCode.CONTROL) {
                             keydown.ctrlKey = true;
+                        }
                     }
                     trigger(elem, keydown);
                     if (!keydown.defaultPrevented) {
-                        keypress.keyCode = keyCode;
-                        if (modifier == Inputmask.keyCode.CONTROL)
+                        keypress.keyCode = keycode;
+                        if (modifier == keyCode.CONTROL) {
                             keypress.ctrlKey = true;
+                        }
                         trigger(elem, keypress);
                         //if (!keypress.isDefaultPrevented()) {
-                        keyup.keyCode = keyCode;
-                        if (modifier == Inputmask.keyCode.CONTROL)
+                        keyup.keyCode = keycode;
+                        if (modifier == keyCode.CONTROL) {
                             keyup.ctrlKey = true;
+                        }
                         trigger(elem, keyup);
                         //}
                     }
                 }
         }
-    }
-    if (!('append' in $.fn)) {
+    };
+    if (!("append" in $.fn)) {
         $.fn.append = function (child) {
             var input = this.nodeName ? this : this[0];
-            input.insertAdjacentHTML('beforeend', child);
+            input.insertAdjacentHTML("beforeend", child);
         };
     }
-    if (!('remove' in $.fn)) {
+    if (!("remove" in $.fn)) {
         $.fn.remove = function () {
             var input = this.nodeName ? this : this[0];
             if (input !== undefined && input !== null) {
@@ -174,14 +193,16 @@ export default function (Inputmask) {
             }
         };
     }
-    if (!('val' in $.fn)) {
+    if (!("val" in $.fn)) {
         $.fn.val = function (value) {
             var input = this.nodeName ? this : this[0];
             if (value !== undefined) {
                 if (input.inputmask) {
                     input.inputmask._valueSet(value, true);
                     $(input).trigger("setvalue");
-                } else input.value = value;
+                } else {
+                    input.value = value;
+                }
             }
 
             return input.value;
@@ -191,16 +212,16 @@ export default function (Inputmask) {
     $.fn.Type = function (inputStr) {
         var input = this.nodeName ? this : this[0],
             $input = $(input);
-        $.each(inputStr.split(''), function (ndx, lmnt) {
+        inputStr.split("").forEach(function ( lmnt, ndx) {
             $input.SendKey(lmnt);
         });
-    }
+    };
 
     $.fn.paste = function (inputStr) {
         var input = this.nodeName ? this : this[0],
             $input = $(input);
         if (window.clipboardData) {
-            window.clipboardData.setData('Text', inputStr);
+            window.clipboardData.setData("Text", inputStr);
         } else {
             $.data($input, "clipboard", inputStr);
             window.clipboardData = {
@@ -208,17 +229,18 @@ export default function (Inputmask) {
                     window.clipboardData = undefined;
                     return $.data($input, "clipboard");
                 }
-            }
+            };
         }
 
-        $input.trigger('paste');
-    }
+        $input.trigger("paste");
+    };
 
     $.fn.input = function (inputStr, caretBegin, caretEnd) {
         var input = this.nodeName ? this : this[0];
         input.inputmask.__valueSet.call(input, inputStr);
-        if (caretBegin !== undefined)
+        if (caretBegin !== undefined) {
             $.caret(input, caretBegin, caretEnd);
+        }
         $(input).trigger("input");
-    }
-};
+    };
+}
