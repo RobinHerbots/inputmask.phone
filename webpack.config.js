@@ -1,9 +1,9 @@
 var webpack = require("webpack"),
     UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
-    _ = require("lodash"),
-    pkg = require("./package.json");
+    _ = require("lodash");
 
 function createBanner() {
+    var  pkg = require("./package.json");
     return "[name]\n" +
         `${pkg.homepage}\n` +
         `Copyright (c) 2010 - ${new Date().getFullYear()} ${pkg.author.name}\n` +

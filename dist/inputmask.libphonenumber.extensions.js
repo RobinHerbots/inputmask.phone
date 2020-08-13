@@ -3,7 +3,7 @@
  * https://github.com/RobinHerbots/inputmask.phone#readme
  * Copyright (c) 2010 - 2020 undefined
  * Licensed under the MIT license
- * Version: 1.0.4-beta.1
+ * Version: 1.0.4-beta.3
  */
 !function webpackUniversalModuleDefinition(root, factory) {
     if ("object" == typeof exports && "object" == typeof module) module.exports = factory(require("Inputmask")); else if ("function" == typeof define && define.amd) define([ "Inputmask" ], factory); else {
@@ -13,7 +13,7 @@
 }(window, function(__WEBPACK_EXTERNAL_MODULE__0__) {
     return modules = [ function(module, exports) {
         module.exports = __WEBPACK_EXTERNAL_MODULE__0__;
-    }, , function(module, exports, __webpack_require__) {
+    }, , , function(module, exports, __webpack_require__) {
         "use strict";
         var _inputmask = _interopRequireDefault(__webpack_require__(0));
         function _interopRequireDefault(obj) {
@@ -58,7 +58,7 @@
         return __webpack_require__.d(getter, "a", getter), getter;
     }, __webpack_require__.o = function(object, property) {
         return Object.prototype.hasOwnProperty.call(object, property);
-    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 2);
+    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 3);
     function __webpack_require__(moduleId) {
         if (installedModules[moduleId]) return installedModules[moduleId].exports;
         var module = installedModules[moduleId] = {

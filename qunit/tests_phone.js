@@ -1,3 +1,5 @@
+import keyCode from "inputmask/lib/keycode";
+
 export default function (qunit, Inputmask) {
     var $ = Inputmask.dependencyLib;
     qunit.module("Phone masks");
@@ -85,11 +87,11 @@ export default function (qunit, Inputmask) {
 
         testmask.focus();
         $.caret(testmask, $("#testmask")[0].value.length); //for FF
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
         $("#testmask").Type("451234");
         setTimeout(function () {
             assert.equal(testmask.value, "+55-12-12345-1234", "Result " + testmask.value);
@@ -107,8 +109,8 @@ export default function (qunit, Inputmask) {
         var expected = testmask.value;
 
         $("#testmask").Type("71");
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
-        $("#testmask").SendKey(Inputmask.keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
+        $("#testmask").SendKey(keyCode.BACKSPACE);
 
 
         setTimeout(function () {

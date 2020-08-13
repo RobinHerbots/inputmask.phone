@@ -30,8 +30,8 @@ tests_phone(qunit, Inputmask);
 //phone
 tests_phone_world(qunit, Inputmask);
 tests_phonebe(qunit, Inputmask);
-// tests_phonemx(qunit, Inputmask);
-// tests_phonenl(qunit, Inputmask);
-// tests_phoneru(qunit, Inputmask);
+tests_phonemx(qunit, Inputmask);
+tests_phonenl(qunit, Inputmask);
+tests_phoneru(qunit, Inputmask);
 
 qunit.start();
