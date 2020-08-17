@@ -1,9 +1,11 @@
 var webpack = require("webpack"),
     UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
-    _ = require("lodash");
+    _ = require("lodash"),
+    fs = require("fs"),
+    path = require("path");
 
 function createBanner() {
-    var  pkg = require("./package.json");
+    var pkg = JSON.parse(fs.readFileSync("./package.json"));
     return "[name]\n" +
         `${pkg.homepage}\n` +
         `Copyright (c) 2010 - ${new Date().getFullYear()} ${pkg.author.name}\n` +
@@ -104,7 +106,7 @@ module.exports = function (env, argv) {
         devtool: "source-map",
         plugins: [
             new webpack.BannerPlugin({
-                banner: createBanner(),
+                banner: createBanner,
                 entryOnly: true
             })
         ],
