@@ -19,7 +19,7 @@ export default function (qunit, Inputmask) {
             var $fixture = $("#qunit-fixture");
             $fixture.append('<input type="text" id="testmask" />');
             var testmask = document.getElementById("testmask");
-            Inputmask("phonenl", {nullable: false}).mask(testmask);
+            Inputmask("phoneru", {nullable: false}).mask(testmask);
 
             testmask.focus();
 

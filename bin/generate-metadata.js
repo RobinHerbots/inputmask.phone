@@ -8,9 +8,14 @@ load_PhoneNumberMetadata().then(result => {
     for (var territoryNdx in territories) {
         if (territories.hasOwnProperty(territoryNdx)) {
             var territory = territories[territoryNdx];
-            console.log(territory.$.id + ":" + territory.$.countryCode);
-            if (territory.availableFormats)
-                console.log(JSON.stringify(territory.availableFormats));
+
+            if (territory.$.id === "BE") {
+                console.log(territory.$.id + ":" + territory.$.countryCode);
+                if (territory.availableFormats) {
+                    territory.availableFormats[0].numberFormat.forEach((format) =>
+                        console.table(format));
+                }
+            }
         }
     }
 });

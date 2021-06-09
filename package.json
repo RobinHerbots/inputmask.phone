@@ -1,6 +1,6 @@
 {
   "name": "inputmask.phone",
-  "version": "1.0.4-beta.4",
+  "version": "1.0.5-beta.5",
   "description": "Phone alias for Inputmask",
   "main": "index.js",
   "files": [
@@ -25,32 +25,29 @@
   },
   "homepage": "https://github.com/RobinHerbots/inputmask.phone#readme",
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-typescript": "7.10.4",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "7.13.0",
     "@robinherbots/grunt-available-tasks": "^0.6.4",
     "@robinherbots/grunt-nuget": "^0.3.2",
-    "babel-loader": "^8.1.0",
-    "grunt": "^1.2.1",
+    "babel-loader": "^8.2.2",
+    "grunt": "^1.4.1",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-eslint": "^23.0.0",
     "grunt-release": "^0.14.0",
-    "grunt-webpack": "^4.0.2",
-    "jqlite": "^0.2.42",
-    "jquery": "^3.5.1",
-    "jsdom": "^16.3.0",
+    "grunt-webpack": "^4.0.3",
+    "jquery": "^3.6.0",
     "load-grunt-tasks": "^5.1.0",
-    "lodash": "^4.17.19",
-    "qunit": "^2.10.1",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.44.0",
-    "webpack-cli": "^3.3.12",
+    "lodash": "^4.17.21",
+    "qunit": "^2.15.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0",
     "xml2js": "^0.4.23"
   },
   "dependencies": {
-    "inputmask": "^5.0.6-beta.9"
+    "inputmask": "^5.0.6"
   }
 }

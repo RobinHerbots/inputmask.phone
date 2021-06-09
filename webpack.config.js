@@ -1,8 +1,7 @@
 var webpack = require("webpack"),
-    UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
+    terserPlugin = require("terser-webpack-plugin"),
     _ = require("lodash"),
-    fs = require("fs"),
-    path = require("path");
+    fs = require("fs");
 
 function createBanner() {
     var pkg = JSON.parse(fs.readFileSync("./package.json"));
@@ -55,40 +54,22 @@ module.exports = function (env, argv) {
         },
         optimization: {
             minimize: env === "production",
-            minimizer: [new UglifyJsPlugin({
+            minimizer: [new terserPlugin({
                 include: /\.min\.js$/,
-                sourceMap: env !== "production",
-                uglifyOptions: {
-                    warnings: "verbose",
-                    mangle: false,
-                    compress: {
-                        keep_fnames: true,
-                        unused: false,
-                        typeofs: false,
-                        dead_code: false,
-                        collapse_vars: false
-                    },
-                    output: {
+                terserOptions: {
+                    sourceMap: env !== "production",
+                    format: {
                         ascii_only: true,
                         beautify: false,
                         comments: /^!/
                     }
                 },
                 extractComments: false
-            }), new UglifyJsPlugin({
+            }), new terserPlugin({
                 exclude: /\.min\.js$/,
-                sourceMap: env !== "production",
-                uglifyOptions: {
-                    warnings: "verbose",
-                    mangle: false,
-                    compress: {
-                        keep_fnames: true,
-                        unused: false,
-                        typeofs: false,
-                        dead_code: false,
-                        collapse_vars: false
-                    },
-                    output: {
+                terserOptions: {
+                    sourceMap: env !== "production",
+                    format: {
                         ascii_only: true,
                         beautify: true,
                         comments: /^!/
