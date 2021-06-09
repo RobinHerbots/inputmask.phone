@@ -3,7 +3,7 @@
  * https://github.com/RobinHerbots/inputmask.phone#readme
  * Copyright (c) 2010 - 2021 undefined
  * Licensed under the MIT license
- * Version: 1.0.5-beta.5
+ * Version: 1.0.6-beta.0
  */
 !function(e, t) {
     if ("object" == typeof exports && "object" == typeof module) module.exports = t(require("Inputmask")); else if ("function" == typeof define && define.amd) define([ "Inputmask" ], t); else {
