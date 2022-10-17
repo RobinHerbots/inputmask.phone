@@ -256,6 +256,8 @@
 				{ "mask": "+262-#####-####", "cc": "RE", "cd": "Reunion", "desc_en": "", "name_ru": "Реюньон", "desc_ru": "" },
 				{ "mask": "+40-##-###-####", "cc": "RO", "cd": "Romania", "desc_en": "", "name_ru": "Румыния", "desc_ru": "" },
 				{ "mask": "+381-##-###-####", "cc": "RS", "cd": "Serbia", "desc_en": "", "name_ru": "Сербия", "desc_ru": "" },
+				{ "mask": "+383-##-###-####", "cc": "XK", "cd": "Kosovo", "desc_en": "", "name_ru": "Косово", "desc_ru": "" },
+				{ "mask": "+383-###-###-####", "cc": "XK", "cd": "Kosovo", "desc_en": "", "name_ru": "Косово", "desc_ru": "" },
 				{ "mask": "+7(###)###-##-##", "cc": "RU", "cd": "Russia", "desc_en": "", "name_ru": "Россия", "desc_ru": "" },
 				{ "mask": "+250(###)###-###", "cc": "RW", "cd": "Rwanda", "desc_en": "", "name_ru": "Руанда", "desc_ru": "" },
 				{ "mask": "+966-5-####-####", "cc": "SA", "cd": "Saudi Arabia ", "desc_en": "mobile", "name_ru": "Саудовская Аравия ", "desc_ru": "мобильные" },
