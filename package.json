@@ -45,7 +45,7 @@
     "qunit": "^2.15.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.5.0"
   },
   "dependencies": {
     "inputmask": "^5.0.6"
